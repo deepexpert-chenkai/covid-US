@@ -9,7 +9,7 @@ module.exports = (env) => {
     mode: 'development',
     entry: './src/index.tsx',
     output: {
-      path: `${__dirname}/dist`,
+      path: `${__dirname}/docs`,
       filename: 'build.[hash].js',
     },
     resolve: {
