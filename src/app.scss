@@ -1,4 +1,42 @@
 body {
   margin: 0;
-  padding: 0;
+  padding: 16px;
+  background-color: #f5f5f5;
 }
+
+h3 {
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.topic {
+  flex: 1;
+  margin-right: 16px;
+  padding: 16px;
+  background-color: #ffffff;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .row {
+    display: block;
+  }
+
+  .topic {
+    margin-bottom: 16px;
+    margin-right: 0;
+  }
+}
+
+@import './components/map/index.scss';
+@import './components/chart/index.scss';
+@import './components/table/index.scss';

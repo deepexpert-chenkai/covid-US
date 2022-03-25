@@ -1,42 +1,41 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Chart from './components/chart/index';
+import Map from './components/map/index';
+import Table from './components/table/index';
 import './app.scss';
 
 export default function App() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
+  const [data, setData] = useState(null);
 
-        <Switch>
-          <Route path="/about">
-            a
-          </Route>
-          <Route path="/users">
-            u
-          </Route>
-          <Route path="/">
-            h
-          </Route>
-        </Switch>
+  useEffect(() => {
+    axios.get('https://data.cdc.gov/resource/8396-v7yb.json').then((res) => {
+      setData(res.data);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
+  if (!data) {
+    return <div className="loading" />;
+  }
+
+  return (
+    <div>
+      <div className="row">
+        <div className="topic">
+          <h3>New Cases Distribution</h3>
+          <Map data={data} />
+        </div>
+        <div className="topic">
+          <h3>Total Number of New Cases in US </h3>
+          <Chart data={data} />
+        </div>
       </div>
-    </Router>
+      <div className="topic">
+        <h3>Detail Data </h3>
+        <Table data={data} />
+      </div>
+    </div>
   );
 }
